@@ -1,0 +1,4 @@
+{
+    "eslint.workingDirectories": ["fe", "be"],
+    "eslint.experimental.useFlatConfig": true
+}
