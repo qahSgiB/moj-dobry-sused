@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import Home from './pages/Home.tsx'
 import Add from './pages/Add.tsx'
-import Profile from './pages/Profile.tsx'
+import Detail from './pages/Detail.tsx'
 
 import './index.css'
 
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
     element: <Add/>
   },
   {
-    path: 'profile',
-    element: <Profile/>
+    path: 'detail',
+    element: <Detail/>
   },
 ]);
 
