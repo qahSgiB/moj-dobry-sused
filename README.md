@@ -1,3 +1,28 @@
+# Ako to spustim ?
+## npm install (!! podstatne !!)
+```
+npm install
+```
+Tento prikaz instaluje dependencies v Node.js projektoch. Tento git ma dva Node.js projekty v priecinkoch be a fe, takze tento prikaz treba spustat v oboch tychto priecinkoch.
+
+Treba ho spustit ked si naklonujes tento repozitar.
+
+Taktiez ho treba spustit ak niekto iny zmeni polozku `dependencies` alebo `devDependencies` v subore `package.json`. Najjednoduchsie je asi ho spustit vzdy po `git pull` (ak sa dependencies nezmenili tak prikaz nic neurobi), alebo pustat ho az ked dojde k nejakemu erroru so spravu ze mu chyba nejaky package.
+
+## frontend
+```
+npm run dev
+```
+Tento prikaz sputi frontend.
+
+Pri spusteni vypise do terminalu ip adresu na ktorej sa da stranka otvorit (napriklad: `http://localhost:5173/`).
+Adresa sa da do prehliadaca a stranka by sa mala otvorit.
+
+Ked pri progamovani zmenis nejake subory, tak netreba tento prikaz spustat znova, stranka by sa mala automaticky updatnut.
+
+## backend
+todo ...
+
 # Co treba nainstalovat
 ## Node.js / nvm / nvm-windows / fnm
 (O co ide je popisane v sekcii [Technologie](#Technologie))
@@ -50,6 +75,9 @@ To znamena ze ak otvorite vo vs code cely priecinok (teda nie samostatne podprie
  - [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) - zobrazovanie error priamo v kode.
  - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) - zobrazuje git historiu ako graf. Moze sa hodit ak robis daco s gitom a pracujes s viacerymi vetvami naraz.
  - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) - drble ikonky do file exploreru (ten panel nalavo).
+
+# Konfiguracia
+todo ...
 
 # Struktura
 ## frontend (fe)
