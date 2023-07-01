@@ -1,0 +1,23 @@
+name: moj-dobry-sused
+
+services:
+  db:
+    container_name: moj-dobry-sused-db
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: moj-dobry-sused
+      POSTGRES_DATABASE: moj-dobry-sused
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - moj-dobry-sused-db-data:/var/lib/postgresql/data
+    secrets:
+      - db_password
+
+volumes:
+  moj-dobry-sused-db-data:
+
+secrets:
+  db_password:
+      file: db_password.txt
