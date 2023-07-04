@@ -1,10 +1,11 @@
 import express from 'express'
 import path from 'path';
 import fs from 'fs/promises';
-import 'dotenv/config';
+import { configDotenv } from 'dotenv';
+import cookieParser from 'cookie-parser';
+
 
 import { offerRouter, userRouter } from './routes';
-import { configDotenv } from 'dotenv';
 
 
 // creates the static folder
@@ -18,11 +19,12 @@ configDotenv();
 
 
 const app = express()
+// parse only json requests ???
+app.use(express.json());
+// parse cookie header and populate req.cookies with an object keyed by the cookie names
+app.use(cookieParser());
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-
+// delegates incoming requests to specific routers
 app.use('/static', express.static(staticFolder));
 app.use('/user', userRouter);
 app.use('/offer', offerRouter);
@@ -30,7 +32,6 @@ app.use('/offer', offerRouter);
 
 // set the server port number from environment variable (3000 default)
 let bePort: number | undefined = undefined;
-if (process.env.BE_PORT === undefined) console.log("BE_port je undefined");
 if (process.env.BE_PORT !== undefined) {
   const envPortMaybe = parseInt(process.env.BE_PORT);
   if (!isNaN(envPortMaybe)) {
