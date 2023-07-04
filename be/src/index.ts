@@ -1,15 +1,20 @@
 import express from 'express'
 import path from 'path';
 import fs from 'fs/promises';
+import 'dotenv/config';
 
 import { offerRouter, userRouter } from './routes';
+import { configDotenv } from 'dotenv';
 
 
-
+// creates the static folder
 const staticFolder = path.join(__dirname, '/../static');
 fs.mkdir(staticFolder, { recursive: true });
 fs.mkdir(path.join(staticFolder, 'offer'), { recursive: true });
 fs.mkdir(path.join(staticFolder, 'user'), { recursive: true });
+
+// reads environment variables from .env file into process.env
+configDotenv();
 
 
 const app = express()
