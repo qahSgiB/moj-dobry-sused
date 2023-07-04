@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { configDotenv } from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 
 
 import { offerRouter, userRouter } from './routes';
@@ -23,6 +24,12 @@ const app = express()
 app.use(express.json());
 // parse cookie header and populate req.cookies with an object keyed by the cookie names
 app.use(cookieParser());
+// allow requests from frontend
+app.use(cors({
+  origin: [process.env.FE_URL ?? 'http://localhost:5173'],
+  methods: ['GET', 'POST'],
+  credentials: true,
+}));
 
 // delegates incoming requests to specific routers
 app.use('/static', express.static(staticFolder));
