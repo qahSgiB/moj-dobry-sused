@@ -11,16 +11,53 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   surname  String
   password String
-  email    String
-  sessions Session[]
+  email    String  @unique
+  // probably /static/user/<userId>/photo.jpg
+  photo    String
+  verified Boolean @default(false)
+
+  // not needed probably ???
+  followedBy User[] @relation("UserFollows")
+  following  User[] @relation("UserFollows")
+
+  offers          Offer[]      @relation("offer")
+  receivedReviews UserReview[] @relation("userReviewReceived")
+  stars           Int
+  givenReviews    UserReview[] @relation("userReviewGiven")
+
+  sessions Session[] @relation("session")
 }
 
 model Session {
   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  user   User?  @relation("session", fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   userId Int?
+}
+
+model Offer {
+  id          Int      @id @default(autoincrement())
+  creator     User     @relation("offer", fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  creatorId   Int
+  name        String
+  // probably /static/offer/<offerId>/...
+  pictures    String[]
+  price       Int
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model UserReview {
+  id          Int      @id @default(autoincrement())
+  creator     User     @relation("userReviewGiven", fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  creatorId   Int
+  recipient   User     @relation("userReviewReceived", fields: [recipientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  recipientId Int
+  heading     String
+  stars       Int
+  description String
+  createdAt   DateTime @default(now())
 }

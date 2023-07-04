@@ -8,8 +8,8 @@ import { offerRouter, userRouter } from './routes';
 
 const staticFolder = path.join(__dirname, '/../static');
 fs.mkdir(staticFolder, { recursive: true });
-fs.mkdir(path.join(staticFolder, 'offers'), { recursive: true });
-fs.mkdir(path.join(staticFolder, 'users'), { recursive: true });
+fs.mkdir(path.join(staticFolder, 'offer'), { recursive: true });
+fs.mkdir(path.join(staticFolder, 'user'), { recursive: true });
 
 
 const app = express()
