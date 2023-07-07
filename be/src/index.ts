@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import { configDotenv } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
+import createHttpError from 'http-errors';
 
 
 import { offerRouter, userRouter } from './routes';
@@ -20,9 +21,9 @@ configDotenv();
 
 
 const app = express()
-// parse only json requests ???
+// if request.content = json -> parse it as json
 app.use(express.json());
-// parse cookie header and populate req.cookies with an object keyed by the cookie names
+// parse cookie header -> expose the cookie data as the property req.cookies
 app.use(cookieParser());
 // allow requests from frontend
 app.use(cors({
@@ -36,8 +37,19 @@ app.use('/static', express.static(staticFolder));
 app.use('/user', userRouter);
 app.use('/offer', offerRouter);
 
+app.use((req, res, next) => {
+  next(createHttpError(404, "Page not found"));
+})
 
-// set the server port number from environment variable (3000 default)
+// app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+//   // Sets HTTP status code
+//   res.status(error.status)
+
+//   // Sends response
+//   res.json({ message: error.message })
+// })
+
+// set the server port number from environment variable (default = 3000)
 let bePort: number | undefined = undefined;
 if (process.env.BE_PORT !== undefined) {
   const envPortMaybe = parseInt(process.env.BE_PORT);
@@ -47,7 +59,7 @@ if (process.env.BE_PORT !== undefined) {
 }
 const serverPort = bePort === undefined ? 3000 : bePort;
 
-// set the server name from environment variable (localhost default)
+// set the server name from environment variable (default = localhost)
 const serverName = process.env.BE_HOSTNAME ?? 'localhost';
 
 app.listen(serverPort, serverName, () => {
