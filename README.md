@@ -40,7 +40,7 @@ Treba nainstalovat jedno z
 ### nvm
 (https://github.com/nvm-sh/nvm)
 1. https://github.com/nvm-sh/nvm#installing-and-updating
-2. `nvm install latest` - nainstaluje najnovsiu verziu Node.js
+2. `nvm install node` - nainstaluje najnovsiu verziu Node.js
 3. overit ze funguje - `node --version`
 
 ### nvm-windows
