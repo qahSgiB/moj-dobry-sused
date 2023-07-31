@@ -1,0 +1,31 @@
+.template__topbar {
+    position: fixed;
+    top: 0;
+
+    width: 100dvw;
+    height: 4rem;
+}
+
+.template__content-1 {
+    display: grid;
+    grid-template-columns: 100dvw;
+    grid-template-rows: minmax(calc(100dvh - 4rem), 1fr);
+
+    padding-top: 4rem;
+}
+
+.template__content-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 100%;
+    height: 100%;
+}
