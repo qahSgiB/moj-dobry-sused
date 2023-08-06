@@ -1,4 +1,4 @@
-// import globals from 'globals'
+const globals = require('globals');
 
 const tsParser = require('@typescript-eslint/parser');
 
@@ -17,8 +17,8 @@ module.exports = [
         sourceType: 'module',
       },
       globals: {
-        // ...globals.es2020,
-        // ...globals.browser,
+        ...globals.es2020,
+        ...globals.browser,
       }
     },
     plugins: {
@@ -31,6 +31,12 @@ module.exports = [
       ...eslintJS.configs.recommended.rules,
       ...eslintTS.configs['eslint-recommended'].overrides[0].rules,
       ...eslintTS.configs.recommended.rules,
+      "@typescript-eslint/no-unused-vars": [
+        'warn',
+        {
+          'argsIgnorePattern': '^_'
+        }
+      ]
     }
   },
 ];

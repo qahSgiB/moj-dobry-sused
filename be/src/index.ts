@@ -1,16 +1,17 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { configDotenv } from 'dotenv';
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
-import createHttpError from 'http-errors';
 
 import { offerRouter, userRouter } from './routes';
+import { handleBeErrorRespone, handleFeErrorResponse } from './utils/handleResponse';
 
 
 // creates the static folder
 const staticFolder = path.join(__dirname, '/../static');
+
 fs.mkdir(staticFolder, { recursive: true });
 fs.mkdir(path.join(staticFolder, 'offer'), { recursive: true });
 fs.mkdir(path.join(staticFolder, 'user'), { recursive: true });
@@ -19,7 +20,7 @@ fs.mkdir(path.join(staticFolder, 'user'), { recursive: true });
 configDotenv();
 
 
-const app = express()
+const app = express();
 
 // allow requests from frontend
 app.use(cors({
@@ -37,17 +38,31 @@ app.use('/static', express.static(staticFolder));
 app.use('/user', userRouter);
 app.use('/offer', offerRouter);
 
-app.use((req, res, next) => {
-  next(createHttpError(404, "Page not found"));
-})
+// if no route is matched respond with 404 error
+app.use((req, res) => {
+  handleFeErrorResponse(res, {
+    message: 'Route not found',
+    code: '404',
+  }, 404);
+});
 
-// app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
-//   // Sets HTTP status code
-//   res.status(error.status)
+// handle errors thrown during request handling
+app.use((error: unknown, req: Request, res: Response, _next: NextFunction) => {
+  if (error instanceof SyntaxError && 'type' in error && error.type === 'entity.parse.failed') {
+    handleFeErrorResponse(res, {
+      message: 'Invalid JSON',
+      code: 'invalid-json',
+    });
 
-//   // Sends response
-//   res.json({ message: error.message })
-// })
+    return;
+  }
+
+  console.log('[moj-dobry-sused be] ----- error during handling request');
+  console.log(`[moj-dobry-sused be] ${req.method} ${req.originalUrl}`);
+  console.log(error); // [todo] error logging
+  handleBeErrorRespone(res, 500);
+});
+
 
 // set the server port number from environment variable (default = 3000)
 let bePort: number | undefined = undefined;
@@ -63,5 +78,5 @@ const serverPort = bePort === undefined ? 3000 : bePort;
 const serverHostname = process.env.BE_HOSTNAME ?? 'localhost';
 
 app.listen(serverPort, serverHostname, () => {
-  console.log(`[moj-dobry-sused server] listening on 'http://${serverHostname}:${serverPort}'`);
+  console.log(`[moj-dobry-sused be] listening on 'http://${serverHostname}:${serverPort}'`);
 })
