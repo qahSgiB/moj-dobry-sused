@@ -1,7 +1,6 @@
 import { Response } from "express"
 
-import { FeError, ApiResponse } from "shared/types";
-import { ZodError } from "shared/zod";
+import { FeError, ApiResponse, ValidationError } from "shared/types";
 
 
 
@@ -20,7 +19,7 @@ export const handleBeErrorRespone = <TData>(res: Response<ApiResponse<TData>>, s
   });
 }
 
-export const handleValidationErrorResponse = <TData>(res: Response<ApiResponse<TData>>, error: ZodError) => {
+export const handleValidationErrorResponse = <TData>(res: Response<ApiResponse<TData>>, error: ValidationError) => {
   res.status(400).send({
     status: 'error-validation',
     data: error,

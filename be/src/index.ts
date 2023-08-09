@@ -5,12 +5,22 @@ import express, { Request, Response, NextFunction } from 'express'
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
-import { offerRouter, userRouter } from './routes';
 import { handleBeErrorRespone, handleFeErrorResponse } from './utils/handleResponse';
+import { Session } from './types';
+import { offerRouter, userRouter } from './routes';
+
+
+
+declare module 'express-serve-static-core' {
+  export interface Request {
+    session?: Session,
+  }
+}
+
 
 
 // creates the static folder
-const staticFolder = path.join(__dirname, '/../static');
+const staticFolder = path.join(__dirname, '../static');
 
 fs.mkdir(staticFolder, { recursive: true });
 fs.mkdir(path.join(staticFolder, 'offer'), { recursive: true });

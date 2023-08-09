@@ -7,6 +7,12 @@ export type FeError = {
   message: string,
 }
 
+export type ValidationErrorIn = 'params' | 'query' | 'body';
+
+export type ValidationError = {
+  errorIn: ValidationErrorIn,
+  error: ZodError,
+}
 
 
 export type ApiResponse<TData = unknown> = {
@@ -17,7 +23,7 @@ export type ApiResponse<TData = unknown> = {
   data: undefined,
 } | {
   status: 'error-validation',
-  data: ZodError,
+  data: ValidationError,
 } | {
   status: 'error-fe',
   data: FeError,
