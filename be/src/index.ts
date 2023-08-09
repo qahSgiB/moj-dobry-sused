@@ -31,6 +31,8 @@ configDotenv();
 
 const app = express();
 
+app.disable('x-powered-by');
+
 // allow requests from frontend
 app.use(cors({
   origin: [process.env.FE_URL ?? 'http://localhost:5173'],
