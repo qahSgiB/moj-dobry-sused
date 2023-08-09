@@ -8,6 +8,7 @@ import { loadSession, needsAuthLoggedIn, needsAuthLoggedOut } from './session';
 import { FeErrorClassed, RequestData, Session, SessionLoggedIn, SessionLoggedOut } from "../../types";
 import { Re, reOk } from '../../types/re';
 import { Result } from '@badrap/result';
+import expressAsyncHandler from '../expressAsyncHandler';
 
 
 
@@ -58,7 +59,7 @@ const endpointUncurried = <AT extends AuthType, TR, TP, TQ, TB>(
   validation: RequestValidation<TP, TQ, TB>,
   handle: (data: RequestData<TP, TQ, TB>, session: AuthTypeSession<AT>, req: Request<unknown, ApiResponse<TR>, unknown, unknown>, res: Response) => Promise<HandleResult<TR>>,
 ) => {
-  return async (req: Request<unknown, ApiResponse<TR>, unknown, unknown>, res: Response<ApiResponse<TR>>) => {
+  return expressAsyncHandler(async (req: Request<unknown, ApiResponse<TR>, unknown, unknown>, res: Response<ApiResponse<TR>>) => {
     const session = await loadSession(req, res);
 
     const sessionAuthed = endpointSession(authType, session);
@@ -80,7 +81,7 @@ const endpointUncurried = <AT extends AuthType, TR, TP, TQ, TB>(
     } else {
       handleFeErrorResponse(res, handleResult.error, handleResult.code);
     }
-  }
+  });
 }
 
 

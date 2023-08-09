@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 import { handleBeErrorRespone, handleFeErrorResponse } from './utils/handleResponse';
-import { offerRouter, userRouter } from './routes';
+import { authRouter, offerRouter, userRouter } from './routes';
 
 
 
@@ -44,11 +44,12 @@ app.use(express.json());
 
 // delegates incoming requests to specific routers
 app.use('/static', express.static(staticFolder));
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/offer', offerRouter);
 
 // if no route is matched respond with 404 error
-app.use((req, res) => {
+app.use((_req, res) => {
   handleFeErrorResponse(res, {
     message: 'Route not found',
     code: '404',

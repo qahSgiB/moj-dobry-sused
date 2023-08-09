@@ -9,6 +9,7 @@
   "exports": {
     "./zod": "./src/zod.ts",
     "./types": "./src/types/index.ts",
-    "./schemas": "./src/schemas/index.ts"
+    "./schemas": "./src/schemas/index.ts",
+    "./api": "./src/api/index.ts"
   }
 }
