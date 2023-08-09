@@ -6,16 +6,15 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 import { handleBeErrorRespone, handleFeErrorResponse } from './utils/handleResponse';
-import { Session } from './types';
 import { offerRouter, userRouter } from './routes';
 
 
 
-declare module 'express-serve-static-core' {
-  export interface Request {
-    session?: Session,
-  }
-}
+// declare module 'express-serve-static-core' {
+//   export interface Request {
+//     session?: Session,
+//   }
+// }
 
 
 

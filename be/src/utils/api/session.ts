@@ -1,13 +1,11 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { Request, Response } from 'express';
 
 import z from 'shared/zod';
-import { ApiResponse, FeError } from 'shared/types';
+import { FeError } from 'shared/types';
 
-import expressAsyncHandler from '../expressAsyncHandler';
 import { sessionRepository } from '../../repositories';
 import { Session, SessionLoggedIn, SessionLoggedOut } from '../../types';
 import { Re, reErr, reOk } from '../../types/re'
-import { handleFeErrorResponse } from '../handleResponse';
 
 
 
@@ -43,16 +41,6 @@ export const loadSession = async <TR>(
   };
 }
 
-export const loadSessionMiddleware = expressAsyncHandler(async <TR, TP, TQ, TB>(
-  req: Request<TP, ApiResponse<TR>, TB, TQ>,
-  res: Response<ApiResponse<TR>>,
-  next: NextFunction
-) => {
-  req.session = await loadSession(req, res);
-
-  next();
-})
-
 
 export const needsAuthLoggedIn = (session: Session): Re<SessionLoggedIn, FeError> => {
   if (session.userId === null) {
@@ -79,21 +67,4 @@ export const needsAuthLoggedOut = (session: Session): Re<SessionLoggedOut, FeErr
   return reOk({
     id: session.id
   });
-}
-
-
-export const needsAuthMiddleware = <TR, TP, TQ, TB>(authType: 'loggedIn' | 'loggedOut'): RequestHandler<TP, ApiResponse<TR>, TB, TQ> => {
-  return (req: Request<TP, ApiResponse<TR>, TB, TQ>, res: Response<ApiResponse<TR>>, next: NextFunction) => {
-    if (req.session === undefined) {
-      throw new Error('needsAuth middleware can\'t be used without session attribute in Request object');
-    }
-
-    const needsAuthResult = (authType === 'loggedIn') ? needsAuthLoggedIn(req.session) : needsAuthLoggedOut(req.session);
-    if (!needsAuthResult.ok) {
-      handleFeErrorResponse(res, needsAuthResult.error, 401);
-      return;
-    }
-
-    next();
-  }
 }
