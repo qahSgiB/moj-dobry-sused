@@ -1,4 +1,4 @@
-import useStaticTopbarButtons from '../components/Template/hooks/useTopbarStaticButtons';
+import { useStaticTopbarButtons } from '../components/Template';
 
 import './Home.css'
 

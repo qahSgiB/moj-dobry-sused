@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { authApi } from 'shared/api';
 
 import { client, validateResponse, processResponseErrorSimple } from '../../utils/api';
-import useStaticTopbarButtons from '../../components/Template/hooks/useTopbarStaticButtons';
+import { useStaticTopbarButtons } from '../../components/Template';
 
 import './Profile.css'
 
