@@ -6,7 +6,6 @@ type KnownErrorData = {
   from: 'fe',
   data: {
     message: string,
-    code?: string
   },
 } | {
   from: 'be',
@@ -29,5 +28,5 @@ export class KnownError extends Error {
 
 
 
-export const knownErrorFe = (message: string, code?: string) => new KnownError({ from: 'fe', data: { message, code } });
+export const knownErrorFe = (message: string) => new KnownError({ from: 'fe', data: { message } });
 export const knownErrorBe = (error: ApiResponseError) => new KnownError({ from: 'be', data: error });
