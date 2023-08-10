@@ -9,6 +9,7 @@ import RouteNotFound from './components/RouteNotFound/RouteNotFound.tsx'
 import Home from './pages/Home.tsx'
 import Add from './pages/Add.tsx'
 import Detail from './pages/Detail.tsx'
+import Profile from './pages/profile/Profile.tsx'
 
 import './index.css'
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'detail',
         element: <Detail/>
+      },
+      {
+        path: 'profile',
+        element: <Profile/>
       },
       {
         path: '*',
