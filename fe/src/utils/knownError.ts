@@ -1,3 +1,7 @@
+import { ApiResponseError } from "shared/types";
+
+
+
 type KnownErrorData = {
   from: 'fe',
   data: {
@@ -6,7 +10,7 @@ type KnownErrorData = {
   },
 } | {
   from: 'be',
-  data: Record<string, never>,
+  data: ApiResponseError,
 }
 
 
@@ -26,4 +30,4 @@ export class KnownError extends Error {
 
 
 export const knownErrorFe = (message: string, code?: string) => new KnownError({ from: 'fe', data: { message, code } });
-export const knownErrorBe = () => new KnownError({ from: 'be', data: {} });
+export const knownErrorBe = (error: ApiResponseError) => new KnownError({ from: 'be', data: error });

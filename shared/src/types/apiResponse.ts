@@ -15,10 +15,7 @@ export type ValidationError = {
 }
 
 
-export type ApiResponse<TData = unknown> = {
-  status: 'ok',
-  data: TData,
-} | {
+export type ApiResponseError = {
   status: 'error-be',
   data: undefined,
 } | {
@@ -28,3 +25,8 @@ export type ApiResponse<TData = unknown> = {
   status: 'error-fe',
   data: FeError,
 }
+
+export type ApiResponse<TData = unknown> = {
+  status: 'ok',
+  data: TData,
+} | ApiResponseError

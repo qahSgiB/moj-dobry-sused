@@ -46,18 +46,24 @@
     flex-direction: row;
     align-items: center;
 
-    gap: 2rem;
+    gap: 1rem;
+
+    margin-bottom: 3.0rem;
+}
+
+@media only screen and (max-width: 20rem) {
+    .error-box__controls {
+        flex-direction: column;
+    }
 }
 
 .error-box__button {
-    width: 7rem;
+    width: 6rem;
 
-    margin-bottom: 3.0rem;
-
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0;
 
     font-family: monospace;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--color-black);
     background-color: var(--color-white);
 

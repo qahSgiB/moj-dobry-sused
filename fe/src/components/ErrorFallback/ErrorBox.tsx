@@ -7,25 +7,22 @@ import './ErrorBox.css'
 type ErrorBoxProps = {
   title: string,
   message?: string,
-  backOnRetry?: boolean
 }
 
 
 const ErrorBox = (props: ErrorBoxProps) => {
-  const backOnRetry = props.backOnRetry ?? false;
-
   const navigate = useNavigate();
 
   const goHome = () => {
     navigate('/');
   }
 
-  const retry = () => {
-    if (backOnRetry) {
-      navigate(-1);
-    } else {
-      navigate('.', { relative: 'path' });
-    }
+  const goBack = () => {
+    navigate(-1);
+  }
+
+  const reload = () => {
+    navigate('.', { relative: 'path', replace: true });
   }
 
   return (
@@ -35,8 +32,9 @@ const ErrorBox = (props: ErrorBoxProps) => {
         { props.message !== undefined && <p className='error-box__message'>{ props.message }</p> }
       </div>
       <div className='error-box__controls'>
+        <button className='error-box__button' onClick={ goBack }>Back</button>
         <button className='error-box__button' onClick={ goHome }>Home</button>
-        <button className='error-box__button' onClick={ retry }>{ backOnRetry ? 'Back' : 'Retry' }</button>
+        <button className='error-box__button' onClick={ reload }>Reload</button>
       </div>
     </div>
   )
