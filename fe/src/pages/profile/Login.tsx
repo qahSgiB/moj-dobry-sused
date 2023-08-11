@@ -1,17 +1,17 @@
 import { useStaticTopbarButtons } from '../../components/Template';
 
-import './Profile.css'
+import './Login.css'
 
 
 
-const Profile = () => {
+const Login = () => {
   useStaticTopbarButtons({ type: 'back', to: '/' }, undefined);
 
   return (
-    <p>tutola bude profile stranka</p>
-  );
+    <p>tutola bude login stranka</p>
+  )
 }
 
 
 
-export default Profile;
+export default Login;
