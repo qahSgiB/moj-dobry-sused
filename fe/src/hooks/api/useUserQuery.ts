@@ -1,8 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { authApi } from "shared/api";
 
 import { client, validateResponse, processResponseErrorSimple } from "../../utils/api";
+import { knownErrorFe } from "../../utils/knownError";
 
 
 
@@ -16,7 +17,7 @@ const getMe = async () => {
 
 
 
-const useUserQuery = () => {
+export const useUserQuery = () => {
   const meQuery = useQuery({
     queryKey: ['me'],
     queryFn: getMe,
@@ -29,6 +30,31 @@ const useUserQuery = () => {
   return meQuery;
 }
 
+// [note] do not use this
+export const useUserQueryLoggedIn = () => {
+  const meQuery = useQuery({
+    queryKey: ['me'],
+    queryFn: getMe,
+    select: (data) => {
+      if (data === null) {
+        throw knownErrorFe('expected logged in user')
+      }
 
+      return data;
+    },
+  });
 
-export default useUserQuery;
+  if (meQuery.status === 'error') {
+    throw meQuery.error;
+  }
+
+  return meQuery;
+}
+
+export const useSetUserQuery = () => {
+  const queryClient = useQueryClient();
+
+  return (user: number | null) => {
+    queryClient.setQueryData(['me'], user);
+  }
+}

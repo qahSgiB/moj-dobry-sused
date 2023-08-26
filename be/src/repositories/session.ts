@@ -68,7 +68,7 @@ export const login = async (data: LoginData): Promise<Result<SessionLoggedIn, Fe
       })
 
       if (user === null) {
-        throw new FeErrorClassed('Specified user not found', 'login-user-not-found'); // expected by client
+        throw new FeErrorClassed('User not found', 'login-user-not-found'); // expected by client
       }
 
       const passwordOk = await argon2.verify(user.password, data.user.password);

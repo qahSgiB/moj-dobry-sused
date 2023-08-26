@@ -1,1 +1,1 @@
-export { default as useUserQuery } from './useUserQuery'
+export * from './useUserQuery'
