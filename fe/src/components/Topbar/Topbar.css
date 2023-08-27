@@ -6,6 +6,9 @@
 
     width: 100%;
     height: 100%;
+
+    /* [todo] experimecntal (+ check support) */
+    background: linear-gradient(rgb(255 255 255) 60%, rgb(255 255 255 / 75%) 80%, rgb(255 255 255 / 0%));
 }
 
 .topbar__icon {
