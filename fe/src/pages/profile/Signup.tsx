@@ -52,7 +52,7 @@ const Signup = () => {
 
     return processResponseErrorForm(response, setError, {
       'signup-email-already-used': { field: 'email' },
-    }, { 'name': 'name', 'surname': 'surname', 'email': 'email', 'password': 'password' }); // [todo]
+    }, { 'name': 'name', 'surname': 'surname', 'email': 'email', 'password': 'password' });
   }
 
   const signupMutation = useMutation({
