@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { authApi } from 'shared/api';
 import { IdModel } from 'shared/types';
@@ -74,6 +74,7 @@ const Login = () => {
         </div>
         <input className="login__submit" type="submit" value="Log In" disabled={ loginMutation.status === 'loading' } />
       </form>
+      <p className='signup-text'>Don't have an account? <Link className='signup-text__link' to='/signup'>Sign Up</Link></p>
     </div>
   )
 }

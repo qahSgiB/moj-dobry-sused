@@ -1,0 +1,110 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    /* padding-bottom: 4rem; */
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup__input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    margin: 0.35rem 0;
+}
+
+.signup__input {
+    width: 15rem;
+
+    padding: calc(0.4rem - 1px) calc(0.8rem - 1px);
+
+    border: 1px solid rgb(0 0 0);
+    border-radius: 0.35rem;
+
+    color: rgb(40 40 40);
+
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.signup__input:focus {
+    padding: calc(0.4rem - 3px) calc(0.8rem - 3px);
+    border-width: 3px;
+
+    background-color: rgb(255 255 255);
+    color: rgb(0 0 0);
+}
+
+.signup__input::placeholder {
+    font-size: 0.8rem;
+}
+
+.signup__input--error {
+    border-color: rgb(235 25 25);
+}
+
+.signup__label {
+    margin-left: 1.0rem;
+    margin-bottom: 0.4rem;
+
+    font-size: 0.95rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.signup__error {
+    margin-left: 0.5rem;
+    margin-top: 0.2rem;
+
+    color: rgb(235 25 25);
+
+    font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.signup__submit {
+    width: 100%;
+
+    margin: 1.2rem 0;
+
+    padding: 0.25rem 0;
+
+    border-radius: 0.5rem;
+
+    background-color: rgb(121 173 220);
+    color: rgb(255 255 255);
+
+    font-size: 1.2rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.signup__submit:hover {
+    cursor: pointer;
+
+    background-color: rgb(46 117 178);
+}
+
+.login-text {
+    margin-top: 0.3rem;
+
+    font-size: 0.9rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.login-text__link {
+    color: rgb(46 117 178);
+
+    font-size: 1.0rem;
+    font-family: 'Roboto Slab', serif;
+}

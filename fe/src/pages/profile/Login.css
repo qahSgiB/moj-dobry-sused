@@ -94,3 +94,17 @@
 
     background-color: rgb(46 117 178);
 }
+
+.signup-text {
+    margin-top: 0.3rem;
+
+    font-size: 0.9rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.signup-text__link {
+    color: rgb(46 117 178);
+
+    font-size: 1.0rem;
+    font-family: 'Roboto Slab', serif;
+}
